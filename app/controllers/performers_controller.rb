@@ -24,12 +24,81 @@ class PerformersController < ApplicationController
   end
   
   def update_amount
-    @ccp = ClipCategoryPerformer.create(:clip_category_id => params[:category], :performer_id => current_user.id, :amount => params[:amount].to_f)
+    #@ccp = ClipCategoryPerformer.create(:clip_category_id => params[:category], :performer_id => current_user.performer.id, :amount => params[:amount].to_f)
+     
+    if params[:category] == "1"
+      puts "checked"
+      @ccp = ClipCategoryPerformer.create(:clip_category_id => params[:category_id], :performer_id => current_user.performer.id, :amount => params[:amount].to_f)
+    else
+      puts "unchecked"
+#      d = ClipCategoryPerformer.find_by(:clip_category_id == params[:category] && :performer_id == current_user.performer.id)
+       d = ClipCategoryPerformer.where("clip_category_id = ? AND performer_id = ?", params[:category_id], current_user.performer.id )
+       d.destroy_all
+    end
+     #puts checkbox(category).checked
+#    rails.logger
     respond_to do |format|
       format.js { @ccp }
     end
   end
+  
+  def update_quality_amount
+    #@ccp = ClipCategoryPerformer.create(:clip_category_id => params[:category], :performer_id => current_user.performer.id, :amount => params[:amount].to_f)
+    if params[:quality] == "1"
+      puts "checked"
+      @qp = QualityPerformer.create(:quality_id => params[:quality_id], :performer_id => current_user.performer.id, :amount => params[:amount].to_f)
+    else
+      puts "unchecked"
+#      d = ClipCategoryPerformer.find_by(:clip_category_id == params[:category] && :performer_id == current_user.performer.id)
+       d = QualityPerformer.where("quality_id = ? AND performer_id = ?", params[:quality_id], current_user.performer.id )
+       d.destroy_all
+      
+    end
+     #puts checkbox(category).checked
+#    rails.logger
+    respond_to do |format|
+      format.js { @qp } 
+    end
+  end
+  
+   
+  def update_duration_amount
+    #@ccp = ClipCategoryPerformer.create(:clip_category_id => params[:category], :performer_id => current_user.performer.id, :amount => params[:amount].to_f)
+    if params[:duration] == "1"
+      puts "checked"
+      @dp = DurationPerformer.create(:duration_id => params[:duration_id], :performer_id => current_user.performer.id, :amount => params[:amount].to_f)
+    else
+      puts "unchecked"
+#      d = ClipCategoryPerformer.find_by(:clip_category_id == params[:category] && :performer_id == current_user.performer.id)
+       d = DurationPerformer.where("duration_id = ? AND performer_id = ?", params[:duration_id], current_user.performer.id )
+       d.destroy_all
+      
+    end
+     #puts checkbox(category).checked
+#    rails.logger
+    respond_to do |format|
+      format.js { @qp } 
+    end
+  end
 
+  def update_delivery_time_amount
+    #@ccp = ClipCategoryPerformer.create(:clip_category_id => params[:category], :performer_id => current_user.performer.id, :amount => params[:amount].to_f)
+    if params[:delivery_time] == "1"
+      puts "checked"
+      @dp = DeliveryTime.create(:delivery_time_id => params[:delivery_time_id], :performer_id => current_user.performer.id, :amount => params[:amount].to_f)
+    else
+      puts "unchecked"
+#      d = ClipCategoryPerformer.find_by(:clip_category_id == params[:category] && :performer_id == current_user.performer.id)
+       d = DeliveryTime.where("delivery_time_id = ? AND performer_id = ?", params[:delivery_time_id], current_user.performer.id )
+       d.destroy_all
+    end
+     #puts checkbox(category).checked
+#    rails.logger
+    respond_to do |format|
+      format.js { @dp } 
+    end
+  end
+  
   # POST /performers
   # POST /performers.json
   def create

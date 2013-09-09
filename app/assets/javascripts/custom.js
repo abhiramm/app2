@@ -14,5 +14,36 @@ $("#categories_multiselect").multiSelect({
     $('#categories_multiselect').multiSelect('deselect_all');
     return false;
   });
+  
+  $(".category_check").change(function(){
+  //alert("abhiram")
+    // alert()
+    //alert($(this).data('category'))
+    $("#" + $(this).data('category')).toggle();
 
+  });
+  
+  $(".quality_check").change(function(){
+  //alert("abhiram")
+    // alert()
+    //alert($(this).data('category'))
+    $("#" + $(this).data('quality')).toggle();
+
+  });
+  
+  $(".duration_check").change(function(){
+  //alert("abhiram")
+    // alert()
+    //alert($(this).data('category'))
+    $("#" + $(this).data('duration')).toggle();
+
+  });
+
+    $(".delivery_time_check").change(function(){
+  //alert("abhiram")
+    // alert()
+    //alert($(this).data('category'))
+    $("#" + $(this).data('delivery_time')).toggle();
+
+  });
 });

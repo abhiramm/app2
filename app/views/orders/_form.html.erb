@@ -25,8 +25,9 @@
     <%= f.grouped_collection_select :quality_id, Performer.order(:first_name), :qualities, :first_name, :id, :name, include_blank: true %>
     <%= f.label :delivery_time_id %><br />
     <%= f.grouped_collection_select :delivery_time_id, Performer.order(:first_name), :delivery_times, :first_name, :id, :duration, include_blank: true %>
-    <%= f.label :email%>
-    <%= f.text_field :email%>
+    
+    <%# f.label :email%>
+    <%# f.text_field :email%>
    </div>
   <div class="actions">
     <%= f.submit %>

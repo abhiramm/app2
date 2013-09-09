@@ -9,99 +9,98 @@
   
   <div class="tab-content">
       <div class="tab-pane active" id="tab3">
-          <%= simple_form_for(@performer,:html => {:multipart => true} ) do |f| %>
-          <%= f.error_notification %>
+      <!--    <%# simple_form_for(@performer,:html => {:multipart => true} ) do |f| %>
+          <%# f.error_notification %>
           <div class="form-inputs">
 
-            <%= f.label :clip_categories %>
+            <%# f.label :clip_categories %>
             <div class="controls">
-              <% ClipCategory.all.each do |category| %>
-              <%= check_box_tag "performer[clip_category_ids][]", category.id, @performer.clip_category_ids.include?(category.id) %>
-              <%= category.name %><br />
-              <% end %>
+            <%# ClipCategory.all.each do |category| %>
+              <%# check_box_tag "performer[clip_category_ids][]", category.id, @performer.clip_category_ids.include?(category.id) %>
+              <%# category.name %><br />
+              <%# end %>
             </div>
 
           </div>
 
           <div class="form-actions">
-            <%= f.button :submit %>
+            <%# f.button :submit %>
           </div>
-          <% end %>
+          <%# end %>-->
+          <label>Categories</label>
           <% ClipCategory.all.each do |category| %>
-          <div class="clean">
-            <%= form_tag "update_amount", :remote => :true do %>
-                  <%= label_tag "category", category.name, :class => "pull-left" %>
-                  <%= number_field_tag "amount", @amount, :class => "pull-left" %>
-                  <%= check_box_tag "category", category.id, @performer.clip_category_ids.include?(category.id) %>
-                  <%# hidden_field_tag "category", category.id %>
+              <%= form_tag "update_amount", :remote => :true do %>
+              <div class="span12">
+                <div class="category_check pull-left" data-category="category_text_<%= category.id %>">
+                  <%= check_box_tag "category", 1, ( @performer.clip_category_ids.include?(category.id) ? "checked" : false ), :class => "pull-left" %>  
+                  <%= label_tag "category", category.name, :class => "pull-left category_label" %> 
+                </div>
+                <div id="category_text_<%= category.id%>" class="category_text">
+                  <%= number_field_tag "amount", @amount, :class => "pull-left input-medium" %>
+                  <%= hidden_field_tag "category_id", category.id %>
                   <%= submit_tag "Update" %>
+                 </div>
+              </div>
+                <br />
               <% end %>
-            </div>
+            
           <% end %>
 
         </div>
         <div class="tab-pane" id="tab4">
-          <%= simple_form_for(@performer,:html => {:multipart => true} ) do |f| %>
-          <%= f.error_notification %>
-          <div class="form-inputs">
-
-            <%= f.label :quality %>
-            <div class="controls">
-              <% Quality.all.each do |quality| %>
-              <%= check_box_tag "performer[quality_ids][]", quality.id, @performer.quality_ids.include?(quality.id) %>
-              <%= quality.name %><br />
-              <% end %>
+        <% Quality.all.each do |quality| %>
+          <%= form_tag "update_quality_amount", :remote => :true do %>
+          <div class="span12">
+            <div class="quality_check pull-left" data-quality="quality_text_<%= quality.id %>">
+              <%= check_box_tag "quality", 1, ( @performer.quality_ids.include?(quality.id) ? "checked" : false ), :class => "pull-left" %>  
+              <%= label_tag "quality", quality.name, :class => "pull-left category_label" %> 
             </div>
-
+            <div id="quality_text_<%= quality.id %>" class="quality_text">
+              <%= number_field_tag "amount", @amount, :class => "pull-left input-medium" %>
+              <%= hidden_field_tag "quality_id", quality.id %>
+              <%= submit_tag "Update" %>
+             </div>
           </div>
-
-          <div class="form-actions">
-            <%= f.button :submit %>
-          </div>
+            <br />
+              <% end %>
           <% end %>
-
         </div>
         <div class="tab-pane" id="tab5">
-          <%= simple_form_for(@performer,:html => {:multipart => true} ) do |f| %>
-          <%= f.error_notification %>
-          <div class="form-inputs">
-
-            <%= f.label :duration %>
-            <div class="controls">
-              <% Duration.all.each do |duration| %>
-              <%= check_box_tag "performer[duration_ids][]", duration.id, @performer.duration_ids.include?(duration.id) %>
-              <%= duration.time %><br />
-              <% end %>
+          <% Duration.all.each do |duration| %>
+          <%= form_tag "update_duration_amount", :remote => :true do %>
+          <div class="span12">
+            <div class="duration_check pull-left" data-duration="duration_text_<%= duration.id %>">
+              <%= check_box_tag "duration", 1, ( @performer.duration_ids.include?(duration.id) ? "checked" : false ), :class => "pull-left" %>  
+              <%= label_tag "duration", duration.time, :class => "pull-left duration_label" %> 
             </div>
-
+            <div id="duration_text_<%= duration.id %>" class="duration_text">
+              <%= number_field_tag "amount", @amount, :class => "pull-left input-medium" %>
+              <%= hidden_field_tag "duration_id", duration.id %>
+              <%= submit_tag "Update" %>
+             </div>
           </div>
-
-          <div class="form-actions">
-            <%= f.button :submit %>
-          </div>
+            <br />
+              <% end %>
           <% end %>
-
+          
         </div>
         <div class="tab-pane" id="tab6">
-          <%= simple_form_for(@performer,:html => {:multipart => true} ) do |f| %>
-          <%= f.error_notification %>
-          <div class="form-inputs">
-
-            <%= f.label :delivery_time %>
-            <div class="controls">
-              <% DeliveryTime.all.each do |delivery| %>
-              <%= check_box_tag "performer[delivery_time_ids][]", delivery.id, @performer.delivery_time_ids.include?(delivery.id) %>
-              <%= delivery.duration %><br />
-              <% end %>
+          <% DeliveryTime.all.each do |delivery_time| %>
+          <%= form_tag "update_delivery_time_amount", :remote => :true do %>
+          <div class="span12">
+            <div class="delivery_time_check pull-left" data-delivery_time="delivery_time_text_<%= delivery_time.id %>">
+              <%= check_box_tag "delivery_time", 1, ( @performer.delivery_time_ids.include?(delivery_time.id) ? "checked" : false ), :class => "pull-left" %>  
+              <%= label_tag "delivery_time", delivery_time.duration, :class => "pull-left delivery_time_label" %> 
             </div>
-
+            <div id="delivery_time_text_<%= delivery_time.id %>" class="delivery_time_text">
+              <%= number_field_tag "amount", @amount, :class => "pull-left input-medium" %>
+              <%= hidden_field_tag "delivery_time_id", delivery_time.id %>
+              <%= submit_tag "Update" %>
+             </div>
           </div>
-
-          <div class="form-actions">
-            <%= f.button :submit %>
-          </div>
+            <br />
+              <% end %>
           <% end %>
-
         </div>
       </div>
     </div>

@@ -1,43 +1,45 @@
 <h2><%= resource_name.to_s.humanize %> accounts page</h2>
 <div class="tabbable"> <!-- Only required for left/right tabs -->
   <ul class="nav nav-tabs">
-    <li class="active"><a href="#tab1" data-toggle="tab">Account Settings</a></li>
-    <li><a href="#tab2" data-toggle="tab">Images</a></li>
+    <li class="active"><a href="#tab1" data-toggle="tab">Images</a></li>
+    <li><a href="#tab2" data-toggle="tab">Accounts</a></li>
   </ul>
-  <div class="tab-content">
-    <div class="tab-pane active" id="tab1">
-      <%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, :class => 'form-vertical' }) do |f| %>
-      <%= f.error_notification %>
-      <%= display_base_errors resource %>
-      <%= f.input :name, :autofocus => true %>
-      <%= f.input :email, :required => true %>
-      <%= f.input :password, :autocomplete => "off", :hint => "leave it blank if you don't want to change it", :required => false %>
-      <%= f.input :password_confirmation, :required => false %>
-      <%= f.input :current_password, :hint => "we need your current password to confirm your changes", :required => true %>
-      <% @user.build_performer  unless @user.performer %>
-      <% end%>
-    </div>
-    <div class="tab-pane" id="tab2">
-      <%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, :class => 'form-vertical' }) do |f| %>
-
-      <%= f.fields_for :performer, @user.performer do |per| %>
-      <%# per.input :first_name %>
-      <%# per.input :white_label_id %>
-      <%# per.association :location, :collection => Location.all, :prompt => "Location" %>
-      <%= per.input :avatar %>
-      <%# per.input :location %>
-      <%# per.label "Categories" %>
-      <%# per.association :clip_categories, :label => "Categories", :wrapper_html => { :id => "categories_multiselect", :multiselect => true }%>
-      <%= per.input :photo_id %>
-      <%= per.input :profile_thumb %>
-      <%= per.input :profile_gif %>
+    <div class="tab-content">
+      <div class="tab-pane active" id="tab1">    
+       <%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, :class => 'form-vertical' }) do |f| %>
+        <%= f.error_notification %>
+        <%= display_base_errors resource %>
+        <% @user.build_performer  unless @user.performer %>
+        <%= f.fields_for :performer, @user.performer do |per| %>
+        <%# per.input :first_name %>
+        <%# per.input :white_label_id %>
+        <%= per.association :location, :collection => Location.all, :prompt => "Location" %>
+        <%= per.input :avatar %>
+        <%# per.input :location %>
+        <%# per.label "Categories" %>
+        <%# per.association :clip_categories, :label => "Categories", :wrapper_html => { :id => "categories_multiselect", :multiselect => true }%>
+        <%= per.input :photo_id %>
+        <%= per.input :profile_thumb %>
+        <%= per.input :profile_gif %>
       <% end %>
-      <%= f.button :submit, 'Update', :class => 'btn-primary' %>
+    </div>
+
+        <div class="tab-pane" id="tab2">
+         
+          <%= f.input :name, :autofocus => true %>
+          <%= f.input :email, :required => true %>
+          <%= f.input :password, :autocomplete => "off", :hint => "leave it blank if you don't want to change it", :required => false %>
+          <%= f.input :password_confirmation, :required => false %>
+          <%= f.input :current_password, :hint => "we need your current password to confirm your changes", :required => true %>
+        </div>
+          
+    </div>
+       <%= f.button :submit, 'Update', :class => 'btn-primary' %>
       <% end %>
       <h3>Cancel my account</h3>
       <p>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete %>.</p>
       <%= link_to "Back", :back %>
-    </div>
+   
 </div>
 
 
